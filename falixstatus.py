@@ -24,4 +24,4 @@ async def on_ready():
         await asyncio.sleep(600)
         await channel.send(f"falix: {start(True)}")
     
-client.run("MTA3MTEwOTM2MzY4ODgxNjY5MA.G8Xsna.L-vYqlYXGobBVlWUzXsoEiyb2A5CRsQaJnqXbQ")
+client.run(os.environ(TOKEN)
