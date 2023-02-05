@@ -6,15 +6,16 @@ import asyncio
 
 def start(printout: bool) -> str:
     falix = r.get("https://www.saashub.com/falixnodes-status")
-    content = falix.content
     if printout and falix.status_code >= 199 and falix.status_code <= 300:
-        #parse
-        content = '<div class="down-status down-status--up">👌 Up</div>'
-        class_start = content.find('<div class="down-status down-status--up">')
-        class_end = content.find('</div>', class_start) + 6
-        target_class = content[class_start:class_end]
-        if target_class == "<div class=\"down-status down-status--up\">👌 Up</div>": return "up"
-        else: return "down"
+        host = "SERVER"
+        response = os.system(f"ping -c 1 {host}")
+        host_cut = host.split(":")
+        
+        if response == 0:
+            return (f"Host {host_cut[0]}:xxxxx is reachable")
+        else:
+            return (f"Host {host_cut[0]}:xxxxx is not reachable")
+
     else: pass
 
 #intent = discord.Intents.default()
