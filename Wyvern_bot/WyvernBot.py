@@ -7,6 +7,7 @@ from discord.ext import commands
 import os
 import time
 import asyncio
+import pika
 
 #intent = discord.Intents.default()
 client = commands.Bot(intents=discord.Intents.all() ,command_prefix="!")
@@ -21,7 +22,7 @@ async def on_ready():
 #commands
 
 @client.command()
-async def falixhq(): #ping falixnodes server
+async def falixhq(ctx): #ping falixnodes server
     pinghq = os.system("ping game6.falixserver.net")
     channel = client.get_channel("1071107784680144906")
     await channel.send(f"respuesta ping a falixnodes: {pinghq}")
@@ -44,4 +45,14 @@ async def msganonim(ctx): #sends an anonimous message & deletes the user's messa
     messages = await ctx.channel.history(limit=2).flatten()
     await messages[0].delete()
 
-client.run("TOKEN")
+@client.command()
+async def estado(ctx): #chequea el estado del servidor de falixnodes
+    channel = client.get_channel("1071107784680144906")
+    callback_checkpoint = False
+    try:
+        import consumer
+    except pika.exceptions.IDK: await channel.send("servidor apagado")
+
+    if callback_checkpoint: await channel.send("servidor encendido")
+    else: await channel.send("servidor apagado")
+client.run("token")
